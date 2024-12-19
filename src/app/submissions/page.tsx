@@ -241,7 +241,7 @@ const SubmissionReview: React.FC = () => {
 
       <>
         <Dialog
-          open={selectedSubmission && seeSubmissionText}
+          open={selectedSubmission != null && seeSubmissionText}
           onOpenChange={() => {
             setSelectedSubmission(null);
             setSeeSubmissionText(false);
@@ -262,7 +262,7 @@ const SubmissionReview: React.FC = () => {
         </Dialog>
 
         <Dialog
-          open={selectedSubmission && seeSubmissionFeedback}
+          open={selectedSubmission != null && seeSubmissionFeedback}
           onOpenChange={() => {
             setSelectedSubmission(null);
             setSeeSubmissionFeedback(false);

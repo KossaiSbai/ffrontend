@@ -15,12 +15,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { Brief } from "../types";
 
 const SubmissionEvaluator = () => {
   const [submission, setSubmission] = useState("");
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
-  const [briefs, setBriefs] = useState([]);
+  const [briefs, setBriefs] = useState<Brief[]>([]);
   const [selectedBrief, setSelectedBrief] = useState("");
 
   useEffect(() => {
@@ -53,7 +54,8 @@ const SubmissionEvaluator = () => {
       let done = false;
 
       while (!done) {
-        const { value, done: readerDone } = await reader?.read();
+        if (!reader) throw new Error("Reader is undefined");
+        const { value, done: readerDone } = await reader.read();
         if (value) {
           const chunk = decoder.decode(value, { stream: true });
           setFeedback((prev) => prev + chunk);
